@@ -47,3 +47,6 @@ ggplot(pups_tidy, aes(x = year,
 + Site Sugarloadand Chowiest saw the greatest Steller sea lion pup count in from around 165 - 1980, followed by a sharp decline in the following years
 + Site Hazy is steadily increasing over time
 + More recently (2010 - ) site Chowiet shows lowest mean Steller sea lion pup populations.
+
+#### Steller sea lion pup data source: 
+- Fritz, Lowell; Sweeney, Kathryn; Lynn, Morgan; Gelatt, Thomas; Gilpatrick, James; Towell, Rodney (2015). Counts of Alaska Steller sea lion pups conducted on rookeries in Alaska from 1961-06-22 to 2015-07-18 (NCEI Accession 0128189). NOAA National Centers for Environmental Information. Dataset. https://doi.org/10.7289/v5862ddr. Accessed 2020-12-04.

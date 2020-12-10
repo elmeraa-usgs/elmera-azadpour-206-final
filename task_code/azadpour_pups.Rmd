@@ -12,25 +12,25 @@ library(here)
 library(janitor)
 ```
 
-```{r}
+```{r, echo = FALSE, error = FALSE, warning=FALSE, message=FALSE}
 sl_pups <- read_csv(here("exam_data","steller_pups.csv"))
 sl_pups_clean <- sl_pups %>% clean_names()
 ```
 
-```{r}
+```{r, echo = FALSE, error = FALSE, warning=FALSE, message=FALSE}
 pup_means <- sl_pups_clean %>% 
   group_by(year, sitename) %>% 
   mutate(mean_pupcount = mean(pupcount, na.rm= TRUE))  
 ```
 
-```{r}
+```{r, echo = FALSE, error = FALSE, warning=FALSE, message=FALSE}
 pups_tidy <- pup_means %>% 
   filter(sitename %in% c("Sugarloaf", "Forrester Complex", "Chowiet", "Hazy")) %>% 
   select(sitename, year, mean_pupcount) %>% 
   rename(steller_pups = mean_pupcount)
 ```
 
-```{r,fig.cap = "**Figure 1**. Mean Steller sea lion pup counts from 1961 - 2015 at five sites from Alaska rookeries. Red correlates to Chowiet. Green correlates to Forrester Complex. Blue correlated to Hazy. Purple correlates to Sugarloaf" }
+```{r,fig.cap = "**Figure 1**. Mean Steller sea lion pup counts from 1961 - 2015 at five sites from Alaska rookeries. Red correlates to Chowiet. Green correlates to Forrester Complex. Blue correlated to Hazy. Purple correlates to Sugarloaf. Data provided from NOAA National Center for Environmental Information (NCEI).", fig.width= 10}
 ggplot(pups_tidy, aes(x = year, 
                       y = steller_pups)) +
   geom_line(aes(col = sitename)) +
@@ -43,4 +43,7 @@ ggplot(pups_tidy, aes(x = year,
   scale_y_continuous(breaks=seq(0,5500, 1000)) +
   scale_color_discrete("Site name")
 ```
-
+#### Steller pup conclusions:
++ Site Sugarloadand Chowiest saw the greatest Steller sea lion pup count in from around 165 - 1980, followed by a sharp decline in the following years
++ Site Hazy is steadily increasing over time
++ More recently (2010 - ) site Chowiet shows lowest mean Steller sea lion pup populations.

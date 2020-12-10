@@ -1,0 +1,46 @@
+---
+title: 'Task 2: Sea Lion Pups at Alaska Rookeries'
+author: "Elmera Azadpour"
+date: "12/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+```{r}
+sl_pups <- read_csv(here("exam_data","steller_pups.csv"))
+sl_pups_clean <- sl_pups %>% clean_names()
+```
+
+```{r}
+pup_means <- sl_pups_clean %>% 
+  group_by(year, sitename) %>% 
+  mutate(mean_pupcount = mean(pupcount, na.rm= TRUE))  
+```
+
+```{r}
+pups_tidy <- pup_means %>% 
+  filter(sitename %in% c("Sugarloaf", "Forrester Complex", "Chowiet", "Hazy")) %>% 
+  select(sitename, year, mean_pupcount) %>% 
+  rename(steller_pups = mean_pupcount)
+```
+
+```{r,fig.cap = "**Figure 1**. Mean Steller sea lion pup counts from 1961 - 2015 at five sites from Alaska rookeries. Red correlates to Chowiet. Green correlates to Forrester Complex. Blue correlated to Hazy. Purple correlates to Sugarloaf" }
+ggplot(pups_tidy, aes(x = year, 
+                      y = steller_pups)) +
+  geom_line(aes(col = sitename)) +
+  geom_point(aes(col = sitename), 
+             alpha = 0.3) +
+  theme_minimal() +
+  labs(x = "Year", 
+       y = "Mean Steller sea lion pup count") +
+  scale_x_continuous(breaks=seq(1960,2015, 10)) +
+  scale_y_continuous(breaks=seq(0,5500, 1000)) +
+  scale_color_discrete("Site name")
+```
+
